@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musenga Hope Sichula — My Web Technologies Page</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- Animated tech background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="page-content">
+
+        <header>
+            <h1>Welcome to the World of Web Programming</h1>
+            <h2>Musenga Hope Sichula &mdash; 202511308</h2>
+        </header>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#hobbies">My Hobbies</a></li>
+                <li><a href="#plan">My Learning Plan</a></li>
+                <li><a href="#photos">My Photos</a></li>
+                <li><a href="#media">My Media</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener">MDN Web Docs (learn web dev)</a></li>
+            </ul>
+        </nav>
+
+        <main>
+
+            <!-- ABOUT ME -->
+            <section id="about" class="content-section">
+                <h2>About Me</h2>
+                <p>
+                    My name is Musenga Hope Sichula, and I am a Data Science student at Mulungushi
+                    University in the School of Engineering and Technology. I am currently taking
+                    ICT251 Web Technologies, which is teaching me how to structure, style and bring
+                    web pages to life using HTML, CSS and JavaScript. Outside of web development, my
+                    coursework also covers data structures, Java programming and statistics, all of
+                    which feed into my long-term goal of building data-driven applications. I enjoy
+                    the problem-solving side of programming, and building this personal website has
+                    been a practical way to see how the building blocks of the web fit together,
+                    from semantic markup to responsive design.
+                </p>
+            </section>
+
+            <!-- HOBBIES -->
+            <section id="hobbies" class="content-section">
+                <h2>My Hobbies</h2>
+                <ul>
+                    <li>Running</li>
+                    <li>Gaming</li>
+                    <li>Coding</li>
+                </ul>
+
+                <h3>Steps I Will Take to Improve My Web Skills</h3>
+                <ol>
+                    <li>Complete a structured HTML and CSS course and rebuild this page from scratch without notes.</li>
+                    <li>Practice JavaScript fundamentals by building small interactive projects such as a to-do list and a quiz app.</li>
+                    <li>Study responsive design principles and rework my projects to work well on mobile screen sizes.</li>
+                </ol>
+            </section>
+
+            <!-- LEARNING PLAN -->
+            <section id="plan" class="content-section">
+                <h2>My Learning Plan</h2>
+                <div class="table-wrapper">
+                <table>
+                    <caption>Weekly Web Learning Plan</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Day</th>
+                            <th scope="col">Topic</th>
+                            <th scope="col">Practice Task</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monday</td>
+                            <td>Semantic HTML</td>
+                            <td>Rebuild this page's structure using header, nav, main and footer only.</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>CSS Layout (Flexbox)</td>
+                            <td>Arrange the photo gallery into a responsive row of cards.</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td>Forms &amp; Validation</td>
+                            <td>Add custom validation messages to the contact form fields.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </section>
+
+            <!-- PHOTOS -->
+            <section id="photos" class="content-section">
+                <h2>My Photos</h2>
+                <p>A few photos from my journey as a student.</p>
+                <div class="gallery">
+                    <figure>
+                        <img src="images/photo1.jpg" alt="Musenga standing outside the Mulungushi University main building">
+                        <figcaption>On campus at Mulungushi University.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/photo2.jpg" alt="at home">
+                        <figcaption>Best formal Outfit.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/photo3.jpg" alt="Musenga anime figure">
+                        <figcaption>Future Data Scientist.</figcaption>
+                    </figure>
+                </div>
+                <p class="credit-note">All photos above were taken by me. (If you use a photo you did not take, add a credit line here naming the photographer or source.)</p>
+            </section>
+
+            <!-- MEDIA -->
+            <section id="media" class="content-section">
+                <h2>My Media</h2>
+
+<h3>Introduction Video</h3>
+<video controls width="640" height="360">
+    <source src="videos/video1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<p class="video-caption">A short video about me.</p>
+                <h3>Audio Clip</h3>
+                <audio controls>
+                    <source src="videos/voice.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="video-caption">
+                    A short audio clip about why I am studying web technologies and how it connects
+                    to my interest in Data Science.
+                </p>
+            </section>
+
+            <!-- CONTACT -->
+            <section id="contact" class="content-section">
+                <h2>Contact</h2>
+                <p class="form-note">
+                    Note: this form is a browser demonstration only. It does not send data anywhere
+                    &mdash; submitting it will simply reload this page.
+                </p>
+                <form action="#" method="get">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="topic">Topic:</label>
+                        <select id="topic" name="topic">
+                            <option value="general">General Enquiry</option>
+                            <option value="project">Project Feedback</option>
+                            <option value="collaboration">Collaboration</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Musenga Hope Sichula &mdash; ICT251 Web Technologies, Mulungushi University.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Animated tech-style particle network background.
+        // Particles drift on their own, and the whole field shifts
+        // vertically as the page is scrolled (parallax effect).
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+        const PARTICLE_COUNT = 70;
+        const LINK_DISTANCE = 130;
+        let scrollOffset = 0;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            const parallaxShift = scrollOffset * 0.15;
+
+            for (let p of particles) {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                const drawY = (p.y + parallaxShift) % height;
+
+                ctx.beginPath();
+                ctx.arc(p.x, drawY, 2, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(56, 189, 248, 0.8)';
+                ctx.fill();
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const a = particles[i];
+                    const b = particles[j];
+                    const ay = (a.y + parallaxShift) % height;
+                    const by = (b.y + parallaxShift) % height;
+
+                    const dx = a.x - b.x;
+                    const dy = ay - by;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < LINK_DISTANCE) {
+                        const opacity = 1 - dist / LINK_DISTANCE;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, ay);
+                        ctx.lineTo(b.x, by);
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${opacity * 0.3})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            createParticles();
+        });
+
+        window.addEventListener('scroll', () => {
+            scrollOffset = window.scrollY;
+        });
+
+        resizeCanvas();
+        createParticles();
+        draw();
+    </script>
+
+</body>
+
+</html>
