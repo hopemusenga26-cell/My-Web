@@ -1,0 +1,173 @@
+/* =============================================================
+   js/script.js — Musenga Hope Sichula, ICT251 Activity 3
+   All page behaviour lives in this file (loaded with defer).
+   ============================================================= */
+
+'use strict';
+
+// Lets the CSS know JavaScript is running (used for progressive enhancement).
+document.documentElement.classList.add('js');
+
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+
+/* -------------------------------------------------------------
+   Animated background
+   Tech-style particle network. Particles drift on their own and
+   the whole field shifts slightly as the page scrolls (parallax).
+   With "reduce motion" switched on, one still frame is drawn.
+   ------------------------------------------------------------- */
+const background = {
+    canvas: null,
+    ctx: null,
+    width: 0,
+    height: 0,
+    particles: [],
+    scrollOffset: 0,
+    colour: '56, 189, 248',
+    PARTICLE_COUNT: 70,
+    LINK_DISTANCE: 130
+};
+
+// Reads the particle colour from the CSS custom property --particle-rgb.
+function readParticleColour() {
+    const value = getComputedStyle(document.documentElement).getPropertyValue('--particle-rgb').trim();
+    if (value) {
+        background.colour = value;
+    }
+}
+
+// Matches the canvas size to the window.
+function resizeCanvas() {
+    background.width = background.canvas.width = window.innerWidth;
+    background.height = background.canvas.height = window.innerHeight;
+}
+
+// Fills the particles array with randomly placed, slowly moving points.
+function createParticles() {
+    background.particles = [];
+    for (let i = 0; i < background.PARTICLE_COUNT; i++) {
+        background.particles.push({
+            x: Math.random() * background.width,
+            y: Math.random() * background.height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4
+        });
+    }
+}
+
+// Draws one frame: moves each particle, then links particles that are close together.
+function drawBackground(animate) {
+    const { ctx, width, height, particles, colour, LINK_DISTANCE } = background;
+    ctx.clearRect(0, 0, width, height);
+
+    const parallaxShift = background.scrollOffset * 0.15;
+
+    for (const p of particles) {
+        if (animate) {
+            p.x += p.vx;
+            p.y += p.vy;
+        }
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        const drawY = (p.y + parallaxShift) % height;
+
+        ctx.beginPath();
+        ctx.arc(p.x, drawY, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${colour}, 0.8)`;
+        ctx.fill();
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i];
+            const b = particles[j];
+            const ay = (a.y + parallaxShift) % height;
+            const by = (b.y + parallaxShift) % height;
+
+            const dx = a.x - b.x;
+            const dy = ay - by;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < LINK_DISTANCE) {
+                const opacity = 1 - dist / LINK_DISTANCE;
+                ctx.beginPath();
+                ctx.moveTo(a.x, ay);
+                ctx.lineTo(b.x, by);
+                ctx.strokeStyle = `rgba(${colour}, ${opacity * 0.3})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+// Animation loop; stops moving when the visitor prefers reduced motion.
+function backgroundLoop() {
+    drawBackground(!reducedMotionQuery.matches);
+    if (!reducedMotionQuery.matches) {
+        requestAnimationFrame(backgroundLoop);
+    }
+}
+
+// Sets up the canvas and its resize / scroll listeners.
+function initBackground() {
+    background.canvas = document.getElementById('bg-canvas');
+    if (!background.canvas || !background.canvas.getContext) {
+        return;
+    }
+    background.ctx = background.canvas.getContext('2d');
+
+    readParticleColour();
+    resizeCanvas();
+    createParticles();
+
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        // Only re-scatter particles when the width changes (not when a phone's address bar hides).
+        if (window.innerWidth !== lastWidth) {
+            lastWidth = window.innerWidth;
+            createParticles();
+        }
+        if (reducedMotionQuery.matches) {
+            drawBackground(false);
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+        background.scrollOffset = window.scrollY;
+        if (reducedMotionQuery.matches) {
+            drawBackground(false);
+        }
+    }, { passive: true });
+
+    // Restart the loop if the visitor switches reduced motion off while the page is open.
+    reducedMotionQuery.addEventListener('change', backgroundLoop);
+
+    backgroundLoop();
+}
+
+
+/* -------------------------------------------------------------
+   Sticky header offset
+   Measures the header so in-page links stop just below it.
+   ------------------------------------------------------------- */
+function updateHeaderOffset() {
+    const header = document.querySelector('.site-header');
+    if (header) {
+        document.documentElement.style.setProperty('--header-offset', `${header.offsetHeight + 12}px`);
+    }
+}
+
+
+/* -------------------------------------------------------------
+   Start everything (the script is deferred, so the DOM is ready)
+   ------------------------------------------------------------- */
+initBackground();
+updateHeaderOffset();
+window.addEventListener('resize', updateHeaderOffset);
