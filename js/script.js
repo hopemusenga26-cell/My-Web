@@ -284,9 +284,72 @@ function initContactForm() {
 
 
 /* -------------------------------------------------------------
+   Feature 2: mobile navigation
+   On narrow screens a Menu button opens and closes the nav.
+   ------------------------------------------------------------- */
+const narrowScreenQuery = window.matchMedia('(max-width: 768px)');
+
+// Opens or closes the menu and keeps the button's label and aria-expanded in sync.
+function setMenuOpen(open) {
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('primary-nav');
+    nav.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.querySelector('.nav-toggle-label').textContent = open ? 'Close' : 'Menu';
+    toggle.querySelector('.nav-toggle-icon').textContent = open ? '✕' : '☰';   // ✕ or ☰
+}
+
+// Returns true while the menu is open.
+function isMenuOpen() {
+    return document.getElementById('nav-toggle').getAttribute('aria-expanded') === 'true';
+}
+
+// Connects the Menu button, the nav links, Escape and outside clicks.
+function initMobileNav() {
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('primary-nav');
+    const header = document.querySelector('.site-header');
+    if (!toggle || !nav) {
+        return;
+    }
+
+    toggle.addEventListener('click', () => setMenuOpen(!isMenuOpen()));
+
+    // Close the menu after a link is chosen on a narrow screen.
+    nav.addEventListener('click', (event) => {
+        if (event.target.closest('a') && narrowScreenQuery.matches) {
+            setMenuOpen(false);
+        }
+    });
+
+    // Escape closes the menu and puts keyboard focus back on the button.
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && isMenuOpen()) {
+            setMenuOpen(false);
+            toggle.focus();
+        }
+    });
+
+    // A click anywhere outside the header closes the menu.
+    document.addEventListener('click', (event) => {
+        if (isMenuOpen() && !header.contains(event.target)) {
+            setMenuOpen(false);
+        }
+    });
+
+    // Reset when the screen becomes wide (the full nav is always shown there).
+    narrowScreenQuery.addEventListener('change', () => {
+        setMenuOpen(false);
+        updateHeaderOffset();
+    });
+}
+
+
+/* -------------------------------------------------------------
    Start everything (the script is deferred, so the DOM is ready)
    ------------------------------------------------------------- */
 initBackground();
+initMobileNav();
 updateHeaderOffset();
 window.addEventListener('resize', updateHeaderOffset);
 initContactForm();
