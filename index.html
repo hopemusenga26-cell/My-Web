@@ -88,6 +88,23 @@
                 <h2 id="projects-title">Projects &amp; Skills</h2>
                 <p>Examples of what I have built and learned so far in my Data Science studies.</p>
 
+                <form class="project-filter" id="project-filter" aria-label="Filter projects">
+                    <div class="filter-search">
+                        <label for="project-search">Search projects</label>
+                        <input type="search" id="project-search" placeholder="e.g. Java, OCR, statistics"
+                            autocomplete="off">
+                    </div>
+                    <div class="filter-buttons" role="group" aria-label="Show category">
+                        <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+                        <button type="button" class="chip" data-filter="data" aria-pressed="false">Data &amp; AI</button>
+                        <button type="button" class="chip" data-filter="programming" aria-pressed="false">Programming</button>
+                        <button type="button" class="chip" data-filter="web" aria-pressed="false">Web</button>
+                        <button type="reset" class="btn btn-ghost filter-reset">Reset</button>
+                    </div>
+                </form>
+                <p class="filter-status" id="project-status" aria-live="polite">Showing all 6 projects.</p>
+                <p class="no-results" id="no-projects" hidden></p>
+
                 <div class="project-grid" id="project-list">
 
                     <!-- TODO: Musenga — confirm the YOLO version (the project README says YOLO11n for vehicles; was best.pt trained with YOLOv8?) -->
