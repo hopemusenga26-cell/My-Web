@@ -564,10 +564,13 @@ figcaption {
     margin-top: 0;
 }
 
+/* The intro video is portrait (9:16), so it is capped in width and centred */
 video {
     display: block;
     width: 100%;
-    max-width: 640px;
+    max-width: 360px;
+    max-height: 75vh;
+    margin: 0 auto;
     border-radius: var(--radius);
     background-color: #000;
 }
@@ -754,7 +757,7 @@ textarea:focus {
 /* ===== 14. Responsive layout ===== */
 @media (min-width: 769px) {
     .media-grid {
-        grid-template-columns: 3fr 2fr;
+        grid-template-columns: 1fr 1fr;
         align-items: start;
     }
 }
