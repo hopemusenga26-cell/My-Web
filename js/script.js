@@ -426,8 +426,71 @@ function initProjectFilter() {
 
 
 /* -------------------------------------------------------------
+   Feature 4: light / dark theme switch
+   Sets data-theme on <html>; css/styles.css swaps the colour
+   tokens. The choice is remembered in localStorage when allowed.
+   ------------------------------------------------------------- */
+const THEME_STORAGE_KEY = 'musenga-theme';
+const THEMES = ['dark', 'light'];
+
+// Reads the saved theme; returns null if nothing is saved or storage is blocked.
+function getSavedTheme() {
+    try {
+        const saved = localStorage.getItem(THEME_STORAGE_KEY);
+        return THEMES.includes(saved) ? saved : null;
+    } catch (error) {
+        return null;
+    }
+}
+
+// Saves the theme; quietly does nothing if storage is blocked (e.g. some private windows).
+function saveTheme(theme) {
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (error) {
+        // The theme still changes for this visit; it just will not be remembered.
+    }
+}
+
+// Applies a theme to the page and updates the button so it shows the current state.
+function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+        const isDark = theme === 'dark';
+        toggle.querySelector('.theme-label').textContent = isDark ? 'Dark' : 'Light';
+        toggle.querySelector('.theme-icon').textContent = isDark ? '☾' : '☀';   // ☾ or ☀
+        toggle.title = isDark ? 'Switch to the light theme' : 'Switch to the dark theme';
+    }
+
+    // Recolour the background particles to suit the new theme.
+    readParticleColour();
+    if (background.ctx && reducedMotionQuery.matches) {
+        drawBackground(false);
+    }
+}
+
+// Applies the saved theme (dark by default) and connects the theme button.
+function initThemeSwitch() {
+    applyTheme(getSavedTheme() || 'dark');
+
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) {
+        return;
+    }
+    toggle.addEventListener('click', () => {
+        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        saveTheme(nextTheme);
+    });
+}
+
+
+/* -------------------------------------------------------------
    Start everything (the script is deferred, so the DOM is ready)
    ------------------------------------------------------------- */
+initThemeSwitch();
 initBackground();
 initMobileNav();
 updateHeaderOffset();

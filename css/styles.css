@@ -38,6 +38,28 @@
     --header-offset: 7.5rem;                    /* updated by JS to the real header height */
 }
 
+/* Light theme: same token names, light values (switched by js/script.js) */
+[data-theme="light"] {
+    color-scheme: light;
+    --bg: #f1f5f9;
+    --surface: rgba(255, 255, 255, 0.94);
+    --surface-sunken: #f8fafc;
+    --header-bg: rgba(255, 255, 255, 0.94);
+    --text: #0f172a;
+    --muted: #475569;
+    --accent: #0369a1;
+    --accent-soft: rgba(3, 105, 161, 0.1);
+    --gold: #8a5a00;
+    --gold-hover: #6b4600;
+    --on-gold: #ffffff;
+    --border: #cbd5e1;
+    --error: #b91c1c;
+    --success: #15803d;
+    --focus: #0369a1;
+    --shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    --particle-rgb: 3, 105, 161;
+}
+
 /* ===== 2. Base: element selectors ===== */
 *,
 *::before,
@@ -207,7 +229,8 @@ video {
 }
 
 .brand {
-    flex: 1 1 auto;
+    flex: 1 1 0;
+    min-width: 0;              /* lets a long name wrap instead of pushing the buttons off-screen */
     color: var(--accent);
     font-weight: 700;
     font-size: 1.05rem;
@@ -246,6 +269,16 @@ nav a:hover,
 nav a:focus-visible {
     background-color: var(--gold);
     color: var(--on-gold);
+}
+
+/* Theme button: hidden until JavaScript is running (it needs JS to work) */
+.theme-toggle {
+    display: none;
+    padding: 0.5rem 0.9rem;
+}
+
+.js .theme-toggle {
+    display: inline-flex;
 }
 
 /* Menu button: hidden on wide screens and when JavaScript is off */
@@ -779,6 +812,20 @@ textarea:focus {
 
     .hero-actions .btn {
         flex: 1 1 100%;
+    }
+
+    .brand {
+        font-size: 0.95rem;
+    }
+
+    /* Keep "Theme:" for screen readers but hide it visually to save space */
+    .theme-prefix {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
     }
 }
 
