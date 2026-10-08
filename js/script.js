@@ -346,10 +346,91 @@ function initMobileNav() {
 
 
 /* -------------------------------------------------------------
+   Feature 3: project search and category filter
+   Hides project cards that do not match the typed text and the
+   chosen category (case-insensitive). Reset shows everything.
+   ------------------------------------------------------------- */
+const CATEGORY_NAMES = {
+    all: 'all categories',
+    data: 'Data & AI',
+    programming: 'Programming',
+    web: 'Web'
+};
+
+// Connects the search box, category buttons and Reset button to the project cards.
+function initProjectFilter() {
+    const filterForm = document.getElementById('project-filter');
+    if (!filterForm) {
+        return;
+    }
+    const searchInput = document.getElementById('project-search');
+    const categoryButtons = Array.from(filterForm.querySelectorAll('[data-filter]'));
+    const cards = Array.from(document.querySelectorAll('.project-card'));
+    const status = document.getElementById('project-status');
+    const noResults = document.getElementById('no-projects');
+
+    let activeCategory = 'all';
+
+    // Shows only the cards that match both the search text and the active category.
+    function applyProjectFilter() {
+        const query = searchInput.value.trim().toLowerCase().replace(/\s+/g, ' ');
+
+        const visibleCards = cards.filter((card) => {
+            const inCategory = activeCategory === 'all' || card.dataset.category === activeCategory;
+            const text = card.textContent.toLowerCase().replace(/\s+/g, ' ');
+            const matches = inCategory && text.includes(query);
+            card.hidden = !matches;
+            return matches;
+        });
+
+        if (visibleCards.length === 0) {
+            const searchPart = query ? ` “${searchInput.value.trim()}”` : '';
+            noResults.textContent =
+                `No projects match${searchPart} in ${CATEGORY_NAMES[activeCategory]}. Try another word or press Reset.`;
+            noResults.hidden = false;
+            status.textContent = 'Showing 0 projects.';
+        } else {
+            noResults.hidden = true;
+            status.textContent = visibleCards.length === cards.length
+                ? `Showing all ${cards.length} projects.`
+                : `Showing ${visibleCards.length} of ${cards.length} projects.`;
+        }
+    }
+
+    // Marks one category button as pressed and filters by it.
+    function setCategory(category) {
+        activeCategory = category;
+        categoryButtons.forEach((button) => {
+            button.setAttribute('aria-pressed', String(button.dataset.filter === category));
+        });
+        applyProjectFilter();
+    }
+
+    searchInput.addEventListener('input', applyProjectFilter);
+
+    categoryButtons.forEach((button) => {
+        button.addEventListener('click', () => setCategory(button.dataset.filter));
+    });
+
+    // Pressing Enter in the search box should not reload the page.
+    filterForm.addEventListener('submit', (event) => event.preventDefault());
+
+    // Reset clears the text box (built-in form reset), then we show every card again.
+    filterForm.addEventListener('reset', () => {
+        setTimeout(() => {
+            setCategory('all');
+            searchInput.focus();
+        }, 0);
+    });
+}
+
+
+/* -------------------------------------------------------------
    Start everything (the script is deferred, so the DOM is ready)
    ------------------------------------------------------------- */
 initBackground();
 initMobileNav();
 updateHeaderOffset();
 window.addEventListener('resize', updateHeaderOffset);
+initProjectFilter();
 initContactForm();
