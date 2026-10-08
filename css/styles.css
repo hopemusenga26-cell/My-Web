@@ -248,6 +248,17 @@ nav a:focus-visible {
     color: var(--on-gold);
 }
 
+/* Menu button: hidden on wide screens and when JavaScript is off */
+.nav-toggle {
+    display: none;
+    padding: 0.5rem 0.9rem;
+}
+
+.nav-toggle-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
 /* ===== 5. Sections — the box model on show =====
    Each card has deliberate padding (inside space), a border (the edge)
    and margin (space between cards). */
@@ -651,10 +662,39 @@ textarea:focus {
     }
 }
 
+/* Tablets and phones: the navigation collapses behind the Menu button */
 @media (max-width: 768px) {
     .content-section,
     .hero {
         padding: 20px 22px;
+    }
+
+    .js .nav-toggle {
+        display: inline-flex;
+    }
+
+    .js .site-nav {
+        display: none;
+    }
+
+    .js .site-nav.is-open {
+        display: block;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 2px;
+        padding: var(--space-1) 0;
+    }
+
+    nav a {
+        padding: 10px 12px;    /* bigger tap targets in the stacked menu */
+        border-bottom: 1px solid var(--border);
+        border-radius: 0;
+    }
+
+    .nav-links li:last-child a {
+        border-bottom: none;
     }
 }
 
