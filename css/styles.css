@@ -561,6 +561,71 @@ textarea:focus {
     border-color: var(--accent);
 }
 
+/* Validation feedback (attribute selector set by JS) */
+[aria-invalid="true"] {
+    border: 2px solid var(--error);
+}
+
+.field-error {
+    color: var(--error);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 6px 0 0;
+}
+
+.field-error:empty {
+    display: none;
+}
+
+.form-status {
+    margin: var(--space-1) 0 0;
+    font-weight: 600;
+    color: var(--error);
+}
+
+.form-status:empty {
+    display: none;
+}
+
+/* On-page preview shown after a valid submission */
+.form-preview {
+    margin-top: var(--space-3);
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--success);
+    border-radius: var(--radius);
+    padding: var(--space-2) 1.25rem;
+}
+
+.form-preview h3 {
+    color: var(--success);
+    margin-top: 0;
+}
+
+.preview-list {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 6px var(--space-2);
+    margin: 0 0 var(--space-1);
+}
+
+.preview-list dt {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.preview-list dd {
+    margin: 0;
+    overflow-wrap: anywhere;   /* long emails or words never push the page sideways */
+    white-space: pre-wrap;     /* keeps the line breaks typed in the message */
+}
+
+.preview-time {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
 /* ===== 13. Footer ===== */
 .site-footer {
     text-align: center;

@@ -166,8 +166,127 @@ function updateHeaderOffset() {
 
 
 /* -------------------------------------------------------------
+   Feature 1 (compulsory): contact form validation and preview
+   Nothing is sent: the form is checked in the browser and the
+   validated values are shown back on the page with textContent.
+   ------------------------------------------------------------- */
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// One rule per required field; each returns an error message, or '' when the value is valid.
+const FIELD_RULES = [
+    {
+        id: 'name',
+        validate: (value) => (value === '' ? 'Please enter your name (spaces on their own do not count).' : '')
+    },
+    {
+        id: 'email',
+        validate: (value) => {
+            if (value === '') {
+                return 'Please enter your email address.';
+            }
+            if (!EMAIL_PATTERN.test(value)) {
+                return 'Please enter a valid email address, for example name@example.com.';
+            }
+            return '';
+        }
+    },
+    {
+        id: 'message',
+        validate: (value) => (value === '' ? 'Please write a message (spaces on their own do not count).' : '')
+    }
+];
+
+// Shows or clears the error message next to one field and sets aria-invalid.
+function showFieldError(input, message) {
+    const errorElement = document.getElementById(`${input.id}-error`);
+    errorElement.textContent = message;
+    if (message) {
+        input.setAttribute('aria-invalid', 'true');
+    } else {
+        input.removeAttribute('aria-invalid');
+    }
+}
+
+// Checks one field against its rule; returns true when it is valid.
+function validateField(rule) {
+    const input = document.getElementById(rule.id);
+    const message = rule.validate(input.value.trim());
+    showFieldError(input, message);
+    return message === '';
+}
+
+// Writes the validated values into the preview box (textContent only — never innerHTML).
+function showPreview(values) {
+    document.getElementById('preview-name').textContent = values.name;
+    document.getElementById('preview-email').textContent = values.email;
+    document.getElementById('preview-topic').textContent = values.topic;
+    document.getElementById('preview-message').textContent = values.message;
+
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    document.getElementById('preview-time').textContent = `Validated at ${time} — not sent.`;
+
+    const preview = document.getElementById('form-preview');
+    preview.hidden = false;
+    preview.focus();
+}
+
+// Connects the submit and input events of the contact form.
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) {
+        return;
+    }
+    const status = document.getElementById('form-status');
+    const preview = document.getElementById('form-preview');
+
+    // Our own messages replace the browser's pop-ups; the required attributes stay in the HTML.
+    form.noValidate = true;
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();   // keep everything on this page — nothing is submitted
+
+        const results = FIELD_RULES.map(validateField);
+        const firstInvalidIndex = results.indexOf(false);
+
+        if (firstInvalidIndex !== -1) {
+            const errorCount = results.filter((ok) => !ok).length;
+            status.textContent = errorCount === 1
+                ? 'Please fix the highlighted field.'
+                : `Please fix the ${errorCount} highlighted fields.`;
+            preview.hidden = true;
+            document.getElementById(FIELD_RULES[firstInvalidIndex].id).focus();
+            return;
+        }
+
+        status.textContent = '';
+        const topicSelect = document.getElementById('topic');
+        showPreview({
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            topic: topicSelect.options[topicSelect.selectedIndex].text,
+            message: document.getElementById('message').value.trim()
+        });
+    });
+
+    // Once a field has been marked invalid, re-check it as the visitor types.
+    FIELD_RULES.forEach((rule) => {
+        const input = document.getElementById(rule.id);
+        input.addEventListener('input', () => {
+            if (input.getAttribute('aria-invalid') === 'true') {
+                validateField(rule);
+                if (!form.querySelector('[aria-invalid="true"]')) {
+                    status.textContent = '';
+                }
+            }
+        });
+    });
+}
+
+
+/* -------------------------------------------------------------
    Start everything (the script is deferred, so the DOM is ready)
    ------------------------------------------------------------- */
 initBackground();
 updateHeaderOffset();
 window.addEventListener('resize', updateHeaderOffset);
+initContactForm();
