@@ -1,15 +1,53 @@
+/* =============================================================
+   Musenga Hope Sichula — ICT251 personal website
+   External stylesheet (all styling lives here)
+   ============================================================= */
+
+/* ===== 1. Colour palette and design tokens (CSS custom properties) =====
+   Dark navy + sky blue + gold, kept from Activity 2.
+   All colours below pass WCAG AA contrast on their backgrounds. */
 :root {
+    color-scheme: dark;
     --bg: #0f172a;
-    --card: #1e293b;
+    --surface: rgba(30, 41, 59, 0.9);           /* section cards */
+    --surface-sunken: rgba(15, 23, 42, 0.65);   /* lists, figures, table, project cards */
+    --header-bg: rgba(15, 23, 42, 0.92);
     --text: #e2e8f0;
     --muted: #94a3b8;
     --accent: #38bdf8;
+    --accent-soft: rgba(56, 189, 248, 0.15);
     --gold: #d4af37;
+    --gold-hover: #e8c766;
+    --on-gold: #1e293b;
     --border: #334155;
+    --error: #fca5a5;
+    --success: #86efac;
+    --focus: #38bdf8;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    --particle-rgb: 56, 189, 248;               /* read by js/script.js for the background */
+
+    /* spacing, shape and type scale */
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --space-4: 2rem;
+    --radius-sm: 6px;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --font: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+    --header-offset: 7.5rem;                    /* updated by JS to the real header height */
 }
 
-* {
+/* ===== 2. Base: element selectors ===== */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-offset);   /* anchor links land below the sticky header */
 }
 
 html,
@@ -20,14 +58,53 @@ body {
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: var(--font);
+    font-size: 1rem;
     color: var(--text);
-    line-height: 1.6;
-    min-height: 200vh;
+    line-height: 1.65;
     position: relative;
+    overflow-x: hidden;
 }
 
-/* Animated tech background canvas */
+h1,
+h2,
+h3 {
+    line-height: 1.25;
+}
+
+h3 {
+    color: var(--text);
+    font-size: 1.1rem;
+    margin: var(--space-3) 0 var(--space-1);
+}
+
+p {
+    color: var(--text);
+    margin: 0 0 var(--space-2);
+}
+
+a {
+    color: var(--accent);
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    text-decoration-thickness: 2px;
+}
+
+img,
+video {
+    max-width: 100%;   /* flexible media: never wider than its container */
+    height: auto;
+}
+
+/* Visible keyboard focus everywhere (mouse clicks do not show the ring) */
+:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+/* Animated tech background canvas (id selector) */
 #bg-canvas {
     position: fixed;
     top: 0;
@@ -36,93 +113,202 @@ body {
     height: 100vh;
     z-index: 0;
     display: block;
+    pointer-events: none;
 }
 
 .page-content {
     position: relative;
     z-index: 1;
-    padding: 40px 20px;
-    max-width: 800px;
+}
+
+/* Shared centred column (class selector) */
+.container {
+    width: 100%;
+    max-width: 960px;
     margin: 0 auto;
+    padding: 0 var(--space-2);
 }
 
-/* ===== Header ===== */
-header {
-    background-color: rgba(30, 41, 59, 0.9);
-    border: 1px solid var(--border);
-    border-bottom: 3px solid var(--gold);
-    border-radius: 12px;
-    padding: 24px 32px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-h1 {
-    color: var(--accent);
-    font-size: 2rem;
-    margin: 0 0 4px 0;
-}
-
-h2 {
-    color: var(--muted);
-    font-weight: 400;
-    font-size: 1.1rem;
-    margin: 0;
-}
-
-/* Section headings get their own look, overriding the muted header h2 */
-main h2 {
-    color: var(--gold);
+.skip-link {
+    position: absolute;
+    left: var(--space-2);
+    top: -100px;
+    z-index: 100;
+    background-color: var(--gold);
+    color: var(--on-gold);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
     font-weight: 600;
-    font-size: 1.4rem;
-    margin-top: 0;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 12px;
 }
 
-/* ===== Navigation ===== */
-nav {
-    background-color: rgba(15, 23, 42, 0.85);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 24px;
-    padding: 12px;
+.skip-link:focus {
+    top: var(--space-1);
+}
+
+/* ===== 3. Buttons (class selectors, reused across the page) ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 44px;                 /* comfortable touch target */
+    padding: 0.6rem 1.2rem;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--gold);
+    color: var(--on-gold);
+}
+
+.btn-primary:hover {
+    background-color: var(--gold-hover);
+}
+
+.btn-ghost {
+    background-color: transparent;
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ===== 4. Header and navigation ===== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--header-bg);
+    backdrop-filter: blur(6px);
+    border-bottom: 3px solid var(--gold);
+}
+
+.header-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-2);
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+
+.brand {
+    flex: 1 1 auto;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.site-nav {
+    flex-basis: 100%;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 18px;
+    gap: 4px 10px;
     margin: 0;
     padding: 0;
     justify-content: center;
 }
 
 nav a {
+    display: block;
     color: var(--accent);
     text-decoration: none;
     padding: 6px 10px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 nav a:hover,
-nav a:focus {
+nav a:focus-visible {
     background-color: var(--gold);
-    color: #1e293b;
-    outline: none;
+    color: var(--on-gold);
 }
 
-/* ===== Content sections (class selector, reused) ===== */
-.content-section {
-    background-color: rgba(30, 41, 59, 0.85);
+/* ===== 5. Sections — the box model on show =====
+   Each card has deliberate padding (inside space), a border (the edge)
+   and margin (space between cards). */
+.content-section,
+.hero {
+    background-color: var(--surface);
     backdrop-filter: blur(4px);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px 32px;
-    margin: 24px 0;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);       /* border */
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4); /* padding */
+    margin: var(--space-3) 0;               /* margin */
+    box-shadow: var(--shadow);
+}
+
+/* Section headings (element selectors inside a class) */
+main h2 {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0 0 var(--space-2);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+}
+
+/* ===== 6. Intro / hero ===== */
+.hero {
+    border-bottom: 3px solid var(--gold);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+}
+
+.hero-kicker {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+}
+
+h1 {
+    color: var(--text);
+    font-size: clamp(2rem, 6vw, 2.9rem);
+    margin: 0 0 var(--space-1);
+}
+
+.hero-programme {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.hero-intro {
+    max-width: 62ch;
+    font-size: 1.05rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    margin-top: var(--space-3);
 }
 
 /* id selector for one unique section */
@@ -130,132 +316,187 @@ nav a:focus {
     border-left: 4px solid var(--gold);
 }
 
-p {
-    color: var(--text);
-}
-
-ul,
-ol {
-    background-color: rgba(15, 23, 42, 0.6);
+/* ===== 7. Lists ===== */
+.boxed-list {
+    background-color: var(--surface-sunken);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 16px 16px 36px;
+    border-radius: var(--radius);
+    padding: var(--space-2) var(--space-2) var(--space-2) 2.25rem;
+    margin: 0 0 var(--space-2);
 }
 
-li {
+.boxed-list li {
     margin-bottom: 6px;
 }
 
-/* ===== Photo gallery ===== */
-.gallery {
+.boxed-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* ===== 8. Projects / skills cards ===== */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: var(--space-2) 1.25rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+}
+
+.project-card h3 {
+    margin: 0 0 var(--space-1);
+}
+
+.project-card p {
+    font-size: 0.95rem;
+}
+
+.project-category {
+    align-self: flex-start;
+    background-color: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-bottom: var(--space-1);
+}
+
+.tag-list {
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-    margin-top: 16px;
+    gap: 6px;
+    margin: auto 0 0;          /* pushes tags to the bottom of every card */
+    padding: 0;
+}
+
+.tag-list li {
+    font-size: 0.8rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 10px;
+}
+
+/* ===== 9. Photo gallery ===== */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-2);
 }
 
 .gallery figure {
-    background-color: rgba(15, 23, 42, 0.6);
+    background-color: var(--surface-sunken);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius);
     padding: 10px;
     margin: 0;
-    width: 200px;
     text-align: center;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.gallery img,
-video,
-audio {
-    max-width: 100%;
-    height: auto;
+.gallery figure:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
 }
 
 .gallery img {
-    border-radius: 6px;
     display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;       /* same shape for every photo */
+    object-fit: cover;
+    border-radius: var(--radius-sm);
 }
 
 figcaption {
     color: var(--muted);
-    font-size: 0.85rem;
-    margin-top: 8px;
+    font-size: 0.9rem;
+    margin-top: var(--space-1);
 }
 
 .credit-note {
     color: var(--muted);
     font-size: 0.85rem;
     font-style: italic;
+    margin-top: var(--space-2);
 }
 
-/* ===== Media section ===== */
+/* ===== 10. Media (video and audio) ===== */
+.media-grid {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.media-card {
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-2) 1.25rem;
+}
+
+.media-card h3 {
+    margin-top: 0;
+}
+
 video {
+    display: block;
     width: 100%;
     max-width: 640px;
-    height: auto;
-    border-radius: 8px;
-    margin-top: 12px;
+    border-radius: var(--radius);
     background-color: #000;
-    display: block;
 }
 
 audio {
-    width: 100%;
-    margin-top: 8px;
-}
-audio {
+    display: block;
     width: 100%;
     max-width: 500px;
-    height: 54px;
-    display: block;
-    margin: 15px auto;
-    border-radius: 30px;
-    outline: none;
-    background-color: #1a1a2e;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-
-
-.video-caption {
+.media-summary {
     color: var(--muted);
-    font-size: 0.9rem;
-    margin-top: 8px;
-}
-
-.transcript {
-    background-color: rgba(15, 23, 42, 0.6);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
     font-size: 0.95rem;
+    margin: var(--space-1) 0 0;
 }
 
-/* ===== Table ===== */
+/* ===== 11. Learning-plan table ===== */
 .table-wrapper {
     width: 100%;
-    overflow-x: auto;
+    overflow-x: auto;          /* the table scrolls inside its own box, not the page */
     -webkit-overflow-scrolling: touch;
-    margin-top: 12px;
-    border-radius: 8px;
+    border-radius: var(--radius);
 }
 
 table {
     width: 100%;
     min-width: 480px;
     border-collapse: collapse;
-    background-color: rgba(15, 23, 42, 0.6);
+    background-color: var(--surface-sunken);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
 }
 
 caption {
     color: var(--gold);
     text-align: left;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: var(--space-1);
 }
 
 th,
@@ -263,131 +504,131 @@ td {
     border: 1px solid var(--border);
     padding: 10px 12px;
     text-align: left;
+    vertical-align: top;
 }
 
 th {
-    background-color: rgba(56, 189, 248, 0.15);
+    background-color: var(--accent-soft);
     color: var(--accent);
 }
 
 tbody tr:hover {
-    background-color: rgba(56, 189, 248, 0.08);
+    background-color: var(--accent-soft);
 }
 
-/* ===== Form ===== */
+/* ===== 12. Contact form ===== */
 .form-note {
     color: var(--muted);
-    font-size: 0.9rem;
-    font-style: italic;
+    font-size: 0.95rem;
+    background-color: var(--surface-sunken);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
 }
 
 .form-group {
-    margin-bottom: 16px;
+    margin-bottom: var(--space-2);
 }
 
 label {
     display: block;
     margin-bottom: 6px;
-    color: var(--muted);
+    color: var(--text);
+    font-weight: 600;
 }
 
 input,
 select,
 textarea {
     width: 100%;
+    min-height: 44px;
     padding: 10px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--border);
-    background-color: rgba(15, 23, 42, 0.8);
+    background-color: var(--surface-sunken);
     color: var(--text);
     font-family: inherit;
     font-size: 1rem;
 }
 
+textarea {
+    resize: vertical;
+}
+
 input:focus,
 select:focus,
 textarea:focus {
-    outline: 2px solid var(--accent);
     border-color: var(--accent);
 }
 
-button[type="submit"] {
-    background-color: var(--gold);
-    color: #1e293b;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-button[type="submit"]:hover,
-button[type="submit"]:focus {
-    background-color: #e8c766;
-    outline: none;
-}
-
-button[type="submit"]:active {
-    transform: scale(0.98);
-}
-
-/* ===== Footer ===== */
-footer {
+/* ===== 13. Footer ===== */
+.site-footer {
     text-align: center;
     color: var(--muted);
-    font-size: 0.85rem;
-    padding: 20px 0;
+    font-size: 0.9rem;
+    padding: var(--space-3) 0 var(--space-4);
 }
 
-/* ===== Responsive: keep everything usable on narrow screens ===== */
+.site-footer p {
+    color: var(--muted);
+    margin-bottom: var(--space-1);
+}
+
+.footer-links a {
+    font-weight: 600;
+}
+
+/* ===== 14. Responsive layout ===== */
+@media (min-width: 769px) {
+    .media-grid {
+        grid-template-columns: 3fr 2fr;
+        align-items: start;
+    }
+}
+
 @media (max-width: 768px) {
-    .page-content {
-        padding: 30px 16px;
-    }
-
-    header {
-        padding: 20px 18px;
-    }
-
-    .content-section {
+    .content-section,
+    .hero {
         padding: 20px 22px;
     }
 }
 
 @media (max-width: 480px) {
-    .page-content {
-        padding: 20px 12px;
+    .container {
+        padding: 0 12px;
     }
 
-    header {
-        padding: 18px 14px;
-    }
-
-    h1 {
-        font-size: 1.4rem;
-    }
-
-    h2 {
-        font-size: 0.95rem;
+    .content-section,
+    .hero {
+        padding: 18px 16px;
+        border-radius: var(--radius);
     }
 
     main h2 {
-        font-size: 1.15rem;
+        font-size: 1.25rem;
     }
 
-    .content-section {
-        padding: 16px 18px;
+    .hero-actions .btn {
+        flex: 1 1 100%;
+    }
+}
+
+/* ===== 15. Reduced motion: switch off movement for people who ask for it ===== */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
     }
 
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 
-    .gallery figure {
-        width: 100%;
-        max-width: 260px;
+    .project-card:hover,
+    .gallery figure:hover {
+        transform: none;
     }
 }

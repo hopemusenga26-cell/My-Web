@@ -3,40 +3,64 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal portfolio of Musenga Hope Sichula, BSc Data Science student at Mulungushi University (ICT251 Web Technologies).">
     <title>Musenga Hope Sichula — My Web Technologies Page</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Animated tech background -->
-    <canvas id="bg-canvas"></canvas>
+    <!-- Animated tech background (drawn by js/script.js) -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <div class="page-content">
 
-        <header>
-            <h1>Welcome to the World of Web Programming</h1>
-            <h2>Musenga Hope Sichula &mdash; 202511308</h2>
+        <a class="skip-link" href="#main">Skip to main content</a>
+
+        <header class="site-header">
+            <div class="container header-bar">
+                <a class="brand" href="#home">Musenga Hope Sichula</a>
+
+                <nav id="primary-nav" class="site-nav" aria-label="Main navigation">
+                    <ul class="nav-links">
+                        <li><a href="#about">About Me</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#hobbies">My Hobbies</a></li>
+                        <li><a href="#plan">My Learning Plan</a></li>
+                        <li><a href="#photos">My Photos</a></li>
+                        <li><a href="#media">My Media</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
         </header>
 
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#hobbies">My Hobbies</a></li>
-                <li><a href="#plan">My Learning Plan</a></li>
-                <li><a href="#photos">My Photos</a></li>
-                <li><a href="#media">My Media</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener">MDN Web Docs (learn web dev)</a></li>
-            </ul>
-        </nav>
+        <main id="main" class="container">
 
-        <main>
+            <!-- INTRO / HERO -->
+            <section id="home" class="hero" aria-labelledby="hero-title">
+                <p class="hero-kicker">Welcome to the World of Web Programming</p>
+                <h1 id="hero-title">Musenga Hope Sichula</h1>
+                <p class="hero-programme">
+                    BSc Data Science &middot; Mulungushi University &middot; Student No. 202511308
+                </p>
+                <p class="hero-intro">
+                    I am a second-year Data Science student in the School of Engineering and Technology.
+                    I enjoy the problem-solving side of programming, and I am learning to build
+                    responsive, interactive websites with HTML, CSS and JavaScript on my way to
+                    building data-driven applications.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#projects">View My Projects</a>
+                    <a class="btn btn-ghost" href="#contact">Contact Me</a>
+                </div>
+            </section>
 
             <!-- ABOUT ME -->
-            <section id="about" class="content-section">
-                <h2>About Me</h2>
+            <section id="about" class="content-section" aria-labelledby="about-title">
+                <h2 id="about-title">About Me</h2>
                 <p>
                     My name is Musenga Hope Sichula, and I am a Data Science student at Mulungushi
                     University in the School of Engineering and Technology. I am currently taking
@@ -50,115 +74,231 @@
                 </p>
             </section>
 
+            <!-- PROJECTS / SKILLS -->
+            <section id="projects" class="content-section" aria-labelledby="projects-title">
+                <h2 id="projects-title">Projects &amp; Skills</h2>
+                <p>Examples of what I have built and learned so far in my Data Science studies.</p>
+
+                <div class="project-grid" id="project-list">
+
+                    <!-- TODO: Musenga — confirm the YOLO version (the project README says YOLO11n for vehicles; was best.pt trained with YOLOv8?) -->
+                    <article class="project-card" data-category="data">
+                        <p class="project-category">Data &amp; AI</p>
+                        <h3>Vehicle &amp; Number-Plate Recognition</h3>
+                        <p>
+                            A prototype Automatic Number Plate Recognition (ANPR) system for Zambia's Road
+                            Transport &amp; Safety Agency (RATSA), using simulated registry data. It tracks
+                            vehicles in camera video, reads number plates with OCR, checks each plate against
+                            a mock registry and streams alerts to a live dashboard.
+                        </p>
+                        <ul class="tag-list" aria-label="Tools used">
+                            <li>Python</li>
+                            <li>YOLO</li>
+                            <li>PaddleOCR</li>
+                            <li>FastAPI</li>
+                            <li>SQLite</li>
+                        </ul>
+                    </article>
+
+                    <!-- TODO: Musenga — add the approach/library used and any result (e.g. accuracy) -->
+                    <article class="project-card" data-category="data">
+                        <p class="project-category">Data &amp; AI</p>
+                        <h3>Facial Recognition Pipeline</h3>
+                        <p>
+                            A facial recognition pipeline developed in Google Colab using the CelebA
+                            dataset of celebrity face images.
+                        </p>
+                        <ul class="tag-list" aria-label="Tools used">
+                            <li>Google Colab</li>
+                            <li>CelebA</li>
+                            <li>Computer vision</li>
+                        </ul>
+                    </article>
+
+                    <!-- TODO: Musenga — list the main features (add / edit / delete? file or database storage?) -->
+                    <article class="project-card" data-category="programming">
+                        <p class="project-category">Programming</p>
+                        <h3>Customer Manager (JavaFX)</h3>
+                        <p>
+                            A desktop application built with Java and JavaFX in the ICT261 lab for
+                            managing customer records.
+                        </p>
+                        <ul class="tag-list" aria-label="Tools used">
+                            <li>Java</li>
+                            <li>JavaFX</li>
+                            <li>Desktop GUI</li>
+                        </ul>
+                    </article>
+
+                    <!-- TODO: Musenga — name the structures you implemented and the language used -->
+                    <article class="project-card" data-category="programming">
+                        <p class="project-category">Programming</p>
+                        <h3>Data Structures</h3>
+                        <p>
+                            Coursework on how data is organised and processed efficiently, practised by
+                            implementing and using core data structures in code.
+                        </p>
+                        <ul class="tag-list" aria-label="Skills">
+                            <li>Data structures</li>
+                            <li>Algorithms</li>
+                            <li>Problem solving</li>
+                        </ul>
+                    </article>
+
+                    <!-- TODO: Musenga — name the tools used (Python? R? Excel? MATLAB?) and an example analysis -->
+                    <article class="project-card" data-category="data">
+                        <p class="project-category">Data &amp; AI</p>
+                        <h3>Statistics &amp; Computing</h3>
+                        <p>
+                            Coursework applying statistics and computing to describe, summarise and
+                            analyse data.
+                        </p>
+                        <ul class="tag-list" aria-label="Skills">
+                            <li>Statistics</li>
+                            <li>Data analysis</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card" data-category="web">
+                        <p class="project-category">Web</p>
+                        <h3>This Personal Website</h3>
+                        <p>
+                            My ICT251 portfolio: semantic HTML5, a responsive external stylesheet and
+                            vanilla JavaScript features, version-controlled on GitHub and published on Render.
+                        </p>
+                        <ul class="tag-list" aria-label="Tools used">
+                            <li>HTML5</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                            <li>Git &amp; GitHub</li>
+                            <li>Render</li>
+                        </ul>
+                    </article>
+
+                </div>
+            </section>
+
             <!-- HOBBIES -->
-            <section id="hobbies" class="content-section">
-                <h2>My Hobbies</h2>
-                <ul>
+            <section id="hobbies" class="content-section" aria-labelledby="hobbies-title">
+                <h2 id="hobbies-title">My Hobbies</h2>
+                <ul class="boxed-list hobby-list">
                     <li>Running</li>
                     <li>Gaming</li>
                     <li>Coding</li>
                 </ul>
+            </section>
+
+            <!-- LEARNING PLAN -->
+            <section id="plan" class="content-section" aria-labelledby="plan-title">
+                <h2 id="plan-title">My Learning Plan</h2>
 
                 <h3>Steps I Will Take to Improve My Web Skills</h3>
-                <ol>
+                <ol class="boxed-list">
                     <li>Complete a structured HTML and CSS course and rebuild this page from scratch without notes.</li>
                     <li>Practice JavaScript fundamentals by building small interactive projects such as a to-do list and a quiz app.</li>
                     <li>Study responsive design principles and rework my projects to work well on mobile screen sizes.</li>
                 </ol>
-            </section>
 
-            <!-- LEARNING PLAN -->
-            <section id="plan" class="content-section">
-                <h2>My Learning Plan</h2>
-                <div class="table-wrapper">
-                <table>
-                    <caption>Weekly Web Learning Plan</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">Day</th>
-                            <th scope="col">Topic</th>
-                            <th scope="col">Practice Task</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Monday</td>
-                            <td>Semantic HTML</td>
-                            <td>Rebuild this page's structure using header, nav, main and footer only.</td>
-                        </tr>
-                        <tr>
-                            <td>Wednesday</td>
-                            <td>CSS Layout (Flexbox)</td>
-                            <td>Arrange the photo gallery into a responsive row of cards.</td>
-                        </tr>
-                        <tr>
-                            <td>Friday</td>
-                            <td>Forms &amp; Validation</td>
-                            <td>Add custom validation messages to the contact form fields.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper" role="region" aria-labelledby="plan-caption" tabindex="0">
+                    <table>
+                        <caption id="plan-caption">Weekly Web Learning Plan</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Day</th>
+                                <th scope="col">Topic</th>
+                                <th scope="col">Practice Task</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monday</td>
+                                <td>Semantic HTML</td>
+                                <td>Rebuild this page's structure using header, nav, main and footer only.</td>
+                            </tr>
+                            <tr>
+                                <td>Wednesday</td>
+                                <td>CSS Layout (Flexbox)</td>
+                                <td>Arrange the photo gallery into a responsive row of cards.</td>
+                            </tr>
+                            <tr>
+                                <td>Friday</td>
+                                <td>Forms &amp; Validation</td>
+                                <td>Add custom validation messages to the contact form fields.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
             <!-- PHOTOS -->
-            <section id="photos" class="content-section">
-                <h2>My Photos</h2>
+            <section id="photos" class="content-section" aria-labelledby="photos-title">
+                <h2 id="photos-title">My Photos</h2>
                 <p>A few photos from my journey as a student.</p>
                 <div class="gallery">
                     <figure>
-                        <img src="images/photo1.jpg" alt="Musenga standing outside the Mulungushi University main building">
+                        <img src="images/photo1.jpg" width="607" height="1080" loading="lazy"
+                            alt="Musenga, in a checked shirt and sunglasses, working on a laptop at an outdoor concrete table with green trees behind">
                         <figcaption>On campus at Mulungushi University.</figcaption>
                     </figure>
                     <figure>
-                        <img src="images/photo2.jpg" alt="at home">
+                        <img src="images/photo2.jpg" width="1080" height="1080" loading="lazy"
+                            alt="Musenga in a navy double-breasted suit, tie and glasses, posing in a wooden doorway">
                         <figcaption>Best formal Outfit.</figcaption>
                     </figure>
                     <figure>
-                        <img src="images/photo3.jpg" alt="Musenga anime figure">
+                        <img src="images/photo3.jpg" width="720" height="1080" loading="lazy"
+                            alt="Illustrated cartoon portrait of Musenga holding a chart printout and a laptop, with data dashboards in the background">
                         <figcaption>Future Data Scientist.</figcaption>
                     </figure>
                 </div>
-                <p class="credit-note">All photos above were taken by me. (If you use a photo you did not take, add a credit line here naming the photographer or source.)</p>
+                <!-- TODO: Musenga — who or what created the illustration in photo 3? Add a credit here (app, AI tool or artist). -->
+                <p class="credit-note">The first two photos are my own; the third image is an illustrated portrait of me.</p>
             </section>
 
             <!-- MEDIA -->
-            <section id="media" class="content-section">
-                <h2>My Media</h2>
+            <section id="media" class="content-section" aria-labelledby="media-title">
+                <h2 id="media-title">My Media</h2>
 
-<h3>Introduction Video</h3>
-<video controls width="640" height="360">
-    <source src="videos/video1.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-<p class="video-caption">A short video about me.</p>
-                <h3>Audio Clip</h3>
-                <audio controls>
-                    <source src="videos/voice.m4a" type="audio/mp4">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="video-caption">
-                    A short audio clip about why I am studying web technologies and how it connects
-                    to my interest in Data Science.
-                </p>
+                <div class="media-grid">
+                    <div class="media-card">
+                        <h3>Introduction Video</h3>
+                        <video controls preload="metadata" playsinline width="640" height="360">
+                            <source src="videos/video1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <!-- TODO: Musenga — replace with 2–3 sentences describing what you say/show in the video -->
+                        <p class="media-summary">A short video about me.</p>
+                    </div>
+
+                    <div class="media-card">
+                        <h3>Audio Clip</h3>
+                        <audio controls preload="metadata">
+                            <source src="videos/voice.m4a" type="audio/mp4">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="media-summary">
+                            A short audio clip about why I am studying web technologies and how it connects
+                            to my interest in Data Science.
+                        </p>
+                    </div>
+                </div>
             </section>
 
             <!-- CONTACT -->
-            <section id="contact" class="content-section">
-                <h2>Contact</h2>
+            <section id="contact" class="content-section" aria-labelledby="contact-title">
+                <h2 id="contact-title">Contact</h2>
                 <p class="form-note">
-                    Note: this form is a browser demonstration only. It does not send data anywhere
-                    &mdash; submitting it will simply reload this page.
+                    Note: this form is a browser demonstration only. It does not send data anywhere.
                 </p>
-                <form action="#" method="get">
+                <form id="contact-form" action="#" method="get">
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" autocomplete="name" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" autocomplete="email" required>
                     </div>
 
                     <div class="form-group">
@@ -175,110 +315,24 @@
                         <textarea id="message" name="message" rows="5" required></textarea>
                     </div>
 
-                    <button type="submit">Send Message</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
             </section>
 
         </main>
 
-        <footer>
-            <p>&copy; 2026 Musenga Hope Sichula &mdash; ICT251 Web Technologies, Mulungushi University.</p>
+        <footer class="site-footer">
+            <div class="container">
+                <p>&copy; 2026 Musenga Hope Sichula &mdash; ICT251 Web Technologies, Mulungushi University.</p>
+                <p class="footer-links">
+                    <a href="https://github.com/hopemusenga26-cell/My-Web" target="_blank" rel="noopener">View Source on GitHub</a>
+                    <span aria-hidden="true">&middot;</span>
+                    <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener">MDN Web Docs (learn web dev)</a>
+                </p>
+            </div>
         </footer>
 
     </div>
-
-    <script>
-        // Animated tech-style particle network background.
-        // Particles drift on their own, and the whole field shifts
-        // vertically as the page is scrolled (parallax effect).
-
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-
-        let width, height;
-        let particles = [];
-        const PARTICLE_COUNT = 70;
-        const LINK_DISTANCE = 130;
-        let scrollOffset = 0;
-
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        function createParticles() {
-            particles = [];
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4
-                });
-            }
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, width, height);
-
-            const parallaxShift = scrollOffset * 0.15;
-
-            for (let p of particles) {
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0) p.x = width;
-                if (p.x > width) p.x = 0;
-                if (p.y < 0) p.y = height;
-                if (p.y > height) p.y = 0;
-
-                const drawY = (p.y + parallaxShift) % height;
-
-                ctx.beginPath();
-                ctx.arc(p.x, drawY, 2, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(56, 189, 248, 0.8)';
-                ctx.fill();
-            }
-
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const a = particles[i];
-                    const b = particles[j];
-                    const ay = (a.y + parallaxShift) % height;
-                    const by = (b.y + parallaxShift) % height;
-
-                    const dx = a.x - b.x;
-                    const dy = ay - by;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < LINK_DISTANCE) {
-                        const opacity = 1 - dist / LINK_DISTANCE;
-                        ctx.beginPath();
-                        ctx.moveTo(a.x, ay);
-                        ctx.lineTo(b.x, by);
-                        ctx.strokeStyle = `rgba(56, 189, 248, ${opacity * 0.3})`;
-                        ctx.lineWidth = 1;
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            requestAnimationFrame(draw);
-        }
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            createParticles();
-        });
-
-        window.addEventListener('scroll', () => {
-            scrollOffset = window.scrollY;
-        });
-
-        resizeCanvas();
-        createParticles();
-        draw();
-    </script>
 
 </body>
 
