@@ -1,68 +1,129 @@
-# My Web — Musenga Hope Sichula
+# Musenga Hope Sichula — Personal Portfolio Website
 
-Welcome to my web! This is my personal portfolio website for **ICT251 Web Technologies, Activity 3**
-(Mulungushi University, School of Engineering and Technology). I am a BSc Data Science student, and the
-site grew out of my Activity 2 page: it keeps my About Me, hobbies, learning plan, photos, video and audio,
-and adds a Projects & Skills section, a professional responsive design and four JavaScript features.
+**ICT251 Web Technologies — Activity 3: Interactive Personal Website**
+Mulungushi University, School of Engineering and Technology
 
-- **Live site (Render):** https://musenga-hope-sichula-portfolio.onrender.com
+- **Live website:** https://musenga-hope-sichula-portfolio.onrender.com
 - **Source code:** https://github.com/hopemusenga26-cell/My-Web
 
-Built with plain **HTML5, CSS and vanilla JavaScript**: no frameworks, no build step.
+## About this website
 
-## JavaScript features and how to test them
+This is my personal portfolio website. I am a BSc Data Science student (Student No. 202511308).
+I built the site in Activity 2 and improved it for Activity 3: it now has a professional, responsive
+design that works on phones and computers, a Projects & Skills section, and four interactive
+JavaScript features.
 
-All feature logic is in [`js/script.js`](js/script.js).
+The website is made with plain **HTML5, CSS and JavaScript**. It does not use any frameworks
+and needs no build step.
 
-| # | Feature | How to test it |
-|---|---------|----------------|
-| 1 | **Contact form validation and preview** (compulsory) | Go to **Contact**. (a) Press *Validate & Preview* with everything empty: an error appears under Name, Email and Message. (b) Type only spaces in Name and Message: they are still rejected. (c) Enter `abc` or `a@b` as the email: "Please enter a valid email address". (d) Fill everything in correctly: a **"Validated — not sent"** preview appears below the form, without reloading the page. Nothing is ever sent or stored. |
-| 2 | **Mobile navigation** | Make the window narrower than 769 px (or use a phone). The links collapse behind a **Menu** button. Press it: the menu opens and the button changes to **Close**. Choose a link: the page scrolls there and the menu closes. Escape or a click outside also closes it. |
-| 3 | **Project search and filter** | In **Projects & Skills**, type in the search box (e.g. `java`, `OCR`, upper or lower case both work) or press a category button (*Data & AI*, *Programming*, *Web*). Type something that matches nothing (e.g. `zzz`): a "No projects match…" message appears. **Reset** shows all six projects again. |
-| 4 | **Theme switch** | Press the **Theme** button in the header to switch between dark and light. The button always shows the current theme. Reload the page: your choice is remembered (localStorage; if the browser blocks storage the switch still works for that visit). |
+### Sections on the page
 
-Accessibility details: every control is reachable with the Tab key and shows a visible focus outline;
-error messages use `aria-live` and `aria-invalid`; the menu button uses `aria-expanded` and `aria-controls`;
-the decorative background is a still image (no distracting animation). The video and audio never autoplay.
+| Section | What it contains |
+|---|---|
+| Home | My name, programme, a short introduction and a **View My Projects** button |
+| About Me | A paragraph about me and my studies |
+| Projects & Skills | Six examples of what I have built and learned, with a search and filter |
+| My Hobbies | Three hobbies |
+| My Learning Plan | Three learning steps and a weekly learning table |
+| My Photos | Three captioned photos |
+| My Media | My introduction video and audio clip, each with a written summary |
+| Contact | A contact form that is checked in the browser (no message is sent) |
+
+## The four JavaScript features
+
+All of the JavaScript is in [`js/script.js`](js/script.js).
+
+### 1. Contact form validation and preview (compulsory)
+
+The form checks the name, email and message when you press **Validate & Preview**. It shows an
+error next to any field that is wrong. When everything is correct, it shows a summary of what you
+typed under the form, without reloading the page.
+
+This is a browser demonstration only: **no message is sent** and nothing is saved.
+
+**How to test it** (in the Contact section):
+
+1. Press **Validate & Preview** with all fields empty → an error appears under Name, Email and Message.
+2. Type only spaces in Name and Message → they are still rejected.
+3. Type `abc` as the email → "Please enter a valid email address" appears.
+4. Fill in every field correctly → a **"Validated — not sent"** summary appears below the form.
+
+### 2. Mobile navigation
+
+On narrow screens the menu links are hidden behind a **Menu** button to save space.
+
+**How to test it:**
+
+1. Make the browser window narrow (under 769 px), or open the site on a phone.
+2. Press **Menu** → the links open and the button changes to **Close**.
+3. Press a link → the page goes to that section and the menu closes.
+4. Pressing **Close**, the Escape key, or clicking outside the menu also closes it.
+
+### 3. Project search and filter
+
+Visitors can search the projects or show only one category.
+
+**How to test it** (in the Projects & Skills section):
+
+1. Type `java` or `OCR` in the search box → only matching projects are shown.
+2. Press **Data & AI**, **Programming** or **Web** → only that category is shown.
+3. Type `zzz` → a "No projects match…" message appears.
+4. Press **Reset** → all six projects are shown again.
+
+### 4. Light / dark theme switch
+
+The **Theme** button in the header switches the whole site between a dark and a light appearance.
+
+**How to test it:**
+
+1. Press the **Theme** button → the colours change and the button shows the current theme.
+2. Reload the page → the site remembers your choice.
+
+## Accessibility
+
+- Every link, button and form field can be reached with the **Tab** key and shows a visible focus outline.
+- Every photo has a description (alt text), and every form field has a label.
+- Text has strong contrast with its background in both themes.
+- The video and audio do not play automatically, and nothing on the page moves on its own.
 
 ## Folder structure
 
 ```
 My-Web/
-├── index.html          # the whole page (one h1, sections linked from the nav)
+├── index.html          the website (all sections)
 ├── css/
-│   └── styles.css      # external stylesheet: palette, layout, both themes, media queries
+│   └── styles.css      all the styling: colours, layout, both themes, phone layout
 ├── js/
-│   └── script.js       # still background drawing + the four JavaScript features
-├── images/
-│   ├── photo1.jpg
-│   ├── photo2.jpg
-│   └── photo3.jpg
-├── videos/
-│   ├── video1.mp4      # introduction video
-│   └── voice.m4a       # audio clip
-├── Activity 1.html     # my Activity 1 page, kept for reference (not linked)
-└── README.md
+│   └── script.js       the four JavaScript features
+├── images/             my three photos
+├── videos/             my introduction video (video1.mp4) and audio clip (voice.m4a)
+├── Activity 1.html     my first web page from Activity 1, kept for reference
+└── README.md           this file
 ```
 
-## Run it locally
+## How to view the website
 
-Open the folder in VS Code and use **Live Server**, or run `python -m http.server` in the folder
-and visit http://localhost:8000.
+- **Online:** open https://musenga-hope-sichula-portfolio.onrender.com
+- **On your own computer:** download or clone this repository, open the folder in VS Code,
+  right-click `index.html` and choose **Open with Live Server**.
 
-## Deployment
+## How it is published
 
-Deployed on **Render** as a Static Site from the `main` branch: Root Directory blank,
-Build Command `echo "No build required"`, Publish Directory `.`, Auto Deploy on.
+The site is hosted on **Render** as a Static Site, connected to the `main` branch of this
+GitHub repository. Every time I push a change to `main`, Render updates the live website.
+
+| Render setting | Value |
+|---|---|
+| Root Directory | (blank) |
+| Build Command | `echo "No build required"` |
+| Publish Directory | `.` |
+| Auto Deploy | On |
 
 ## Sources and credits
 
-- Photos 1 and 2, the introduction video and the audio clip are my own.
-- Photo 3 is an illustrated portrait of me.
-- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn): reference for HTML, CSS and JavaScript
-  (form validation, `matchMedia`, `localStorage`, `aria-*` attributes).
-- Colour contrast checked against WCAG 2.1 AA.
-- AI assistance: Claude (Anthropic) helped restructure the page, write the CSS and JavaScript, and test it.
-  The personal content, photos and media are my own.
+- Photos 1 and 2, the introduction video and the audio clip are my own. Photo 3 is an illustrated portrait of me.
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn) — reference for HTML, CSS and JavaScript.
+- AI assistance: Claude (Anthropic) helped me restructure the page, write the CSS and JavaScript,
+  and test it. The personal content, photos and media are my own.
 
 &copy; 2026 Musenga Hope Sichula
