@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Personal portfolio of Musenga Hope Sichula, BSc Data Science student at Mulungushi University (ICT251 Web Technologies).">
     <title>Musenga Hope Sichula — My Web Technologies Page</title>
+    <!-- Inline icon so the browser does not request a missing favicon.ico (avoids a Console 404) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1f3a'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='700' fill='%2338bdf8' text-anchor='middle'%3EMS%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/script.js" defer></script>
 </head>
@@ -112,7 +114,6 @@
 
                 <div class="project-grid" id="project-list">
 
-                    <!-- TODO: Musenga — confirm the YOLO version (the project README says YOLO11n for vehicles; was best.pt trained with YOLOv8?) -->
                     <article class="project-card" data-category="data">
                         <p class="project-category">Data &amp; AI</p>
                         <h3>Vehicle &amp; Number-Plate Recognition</h3>
@@ -131,62 +132,66 @@
                         </ul>
                     </article>
 
-                    <!-- TODO: Musenga — add the approach/library used and any result (e.g. accuracy) -->
                     <article class="project-card" data-category="data">
                         <p class="project-category">Data &amp; AI</p>
                         <h3>Facial Recognition Pipeline</h3>
                         <p>
-                            A facial recognition pipeline developed in Google Colab using the CelebA
-                            dataset of celebrity face images.
+                            Part of a class AI object-detection project, where my group handles model
+                            training, evaluation and testing. I am building the pipeline in Google Colab
+                            using the CelebA face dataset from Kaggle, stored as 384-pixel TFRecord shards.
                         </p>
                         <ul class="tag-list" aria-label="Tools used">
                             <li>Google Colab</li>
                             <li>CelebA</li>
-                            <li>Computer vision</li>
+                            <li>TFRecords</li>
+                            <li>Model evaluation</li>
                         </ul>
                     </article>
 
-                    <!-- TODO: Musenga — list the main features (add / edit / delete? file or database storage?) -->
                     <article class="project-card" data-category="programming">
                         <p class="project-category">Programming</p>
                         <h3>Customer Manager (JavaFX)</h3>
                         <p>
-                            A desktop application built with Java and JavaFX in the ICT261 lab for
-                            managing customer records.
+                            A JavaFX desktop app from my ICT261 lab. It adds customers through a validated
+                            form (name and province list), shows them in a TableView backed by an
+                            ObservableList, and asks for confirmation before deleting a record.
                         </p>
                         <ul class="tag-list" aria-label="Tools used">
                             <li>Java</li>
                             <li>JavaFX</li>
-                            <li>Desktop GUI</li>
+                            <li>Gradle</li>
+                            <li>Input validation</li>
                         </ul>
                     </article>
 
-                    <!-- TODO: Musenga — name the structures you implemented and the language used -->
                     <article class="project-card" data-category="programming">
                         <p class="project-category">Programming</p>
                         <h3>Data Structures</h3>
                         <p>
-                            Coursework on how data is organised and processed efficiently, practised by
-                            implementing and using core data structures in code.
+                            ICT102 coursework on organising data efficiently: stacks, queues and trees,
+                            hashing with linear probing and separate chaining, and sorting algorithms
+                            such as Selection Sort, with attention to time complexity.
                         </p>
                         <ul class="tag-list" aria-label="Skills">
-                            <li>Data structures</li>
-                            <li>Algorithms</li>
-                            <li>Problem solving</li>
+                            <li>Hashing</li>
+                            <li>Sorting</li>
+                            <li>Stacks &amp; queues</li>
+                            <li>Complexity</li>
                         </ul>
                     </article>
 
-                    <!-- TODO: Musenga — name the tools used (Python? R? Excel? MATLAB?) and an example analysis -->
                     <article class="project-card" data-category="data">
                         <p class="project-category">Data &amp; AI</p>
                         <h3>Statistics &amp; Computing</h3>
                         <p>
-                            Coursework applying statistics and computing to describe, summarise and
-                            analyse data.
+                            ICT281 coursework: frequency tables and descriptive statistics, binomial,
+                            Poisson and normal distributions, correlation, and hypothesis tests such as
+                            t-tests and chi-square.
                         </p>
                         <ul class="tag-list" aria-label="Skills">
                             <li>Statistics</li>
-                            <li>Data analysis</li>
+                            <li>Probability</li>
+                            <li>Hypothesis testing</li>
                         </ul>
                     </article>
 
@@ -282,7 +287,6 @@
                         <figcaption>Future Data Scientist.</figcaption>
                     </figure>
                 </div>
-                <!-- TODO: Musenga — who or what created the illustration in photo 3? Add a credit here (app, AI tool or artist). -->
                 <p class="credit-note">The first two photos are my own; the third image is an illustrated portrait of me.</p>
             </section>
 
@@ -297,8 +301,10 @@
                             <source src="videos/video1.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                        <!-- TODO: Musenga — replace with 2–3 sentences describing what you say/show in the video -->
-                        <p class="media-summary">A short video about me.</p>
+                        <p class="media-summary">
+                            A one-minute introduction recorded outdoors in front of a stand of bamboo,
+                            in which I speak to the camera and introduce myself as a Data Science student.
+                        </p>
                     </div>
 
                     <div class="media-card">

@@ -58,7 +58,7 @@ Build Command `echo "No build required"`, Publish Directory `.`, Auto Deploy on.
 ## Sources and credits
 
 - Photos 1 and 2, the introduction video and the audio clip are my own.
-- Photo 3 is an illustrated portrait of me. <!-- TODO: Musenga — credit the app/AI tool/artist that made it -->
+- Photo 3 is an illustrated portrait of me.
 - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn): reference for HTML, CSS and JavaScript
   (form validation, `matchMedia`, `localStorage`, `aria-*` attributes).
 - Colour contrast checked against WCAG 2.1 AA.
