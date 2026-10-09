@@ -10,7 +10,7 @@ Mulungushi University, School of Engineering and Technology
 
 This is my personal portfolio website. I am a BSc Data Science student (Student No. 202511308).
 I built the site in Activity 2 and improved it for Activity 3: it now has a professional, responsive
-design that works on phones and computers, a Projects & Skills section, and four interactive
+design that works on phones and computers, a Projects & Skills section, and five interactive
 JavaScript features.
 
 The website is made with plain **HTML5, CSS and JavaScript**. It does not use any frameworks
@@ -24,12 +24,12 @@ and needs no build step.
 | About Me | A paragraph about me and my studies |
 | Projects & Skills | Six examples of what I have built and learned, with a search and filter |
 | My Hobbies | Three hobbies |
-| My Learning Plan | Three learning steps and a weekly learning table |
+| My Learning Plan | Three learning steps, a weekly learning table and a study hours calculator |
 | My Photos | Three captioned photos |
 | My Media | My introduction video and audio clip, each with a written summary |
 | Contact | A contact form that is checked in the browser (no message is sent) |
 
-## The four JavaScript features
+## The five JavaScript features
 
 All of the JavaScript is in [`js/script.js`](js/script.js).
 
@@ -79,6 +79,20 @@ The **Theme** button in the header switches the whole site between a dark and a 
 1. Press the **Theme** button → the colours change and the button shows the current theme.
 2. Reload the page → the site remembers your choice.
 
+### 5. Study hours calculator
+
+In the **My Learning Plan** section, visitors enter their planned study hours per day and days per
+week, and the calculator shows the total study hours for the week.
+
+**How to test it:**
+
+1. Enter `2` hours and `5` days, then press **Calculate Weekly Hours** → "2 hours a day × 5 days a week = 10 hours of study per week."
+2. Decimals work: `1.5` hours × `3` days → 4.5 hours.
+3. Leave a field blank, or type `abc` → an error message appears next to that field.
+4. Type `-2` hours → "Hours cannot be negative."
+5. Type `0` or `8` days → "Days per week must be from 1 to 7."
+6. Press **Clear** → the fields, errors and result are cleared.
+
 ## Accessibility
 
 - Every link, button and form field can be reached with the **Tab** key and shows a visible focus outline.
@@ -94,7 +108,7 @@ My-Web/
 ├── css/
 │   └── styles.css      all the styling: colours, layout, both themes, phone layout
 ├── js/
-│   └── script.js       the four JavaScript features
+│   └── script.js       the five JavaScript features
 ├── images/             my three photos
 ├── videos/             my introduction video (video1.mp4) and audio clip (voice.m4a)
 ├── Activity 1.html     my first web page from Activity 1, kept for reference

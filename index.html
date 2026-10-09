@@ -265,6 +265,35 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Study hours calculator (worked out by js/script.js) -->
+                <div class="calculator">
+                    <h3 id="calc-title">Study Hours Calculator</h3>
+                    <p>Plan your week: enter how many hours you will study each day and on how many days.</p>
+                    <form id="study-calculator" aria-labelledby="calc-title">
+                        <div class="calc-fields">
+                            <div class="form-group">
+                                <label for="study-hours">Hours per day:</label>
+                                <input type="text" id="study-hours" name="hours" inputmode="decimal"
+                                    autocomplete="off" placeholder="e.g. 2.5" required
+                                    aria-describedby="study-hours-error">
+                                <p class="field-error" id="study-hours-error" aria-live="polite"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="study-days">Days per week (1 to 7):</label>
+                                <input type="text" id="study-days" name="days" inputmode="numeric"
+                                    autocomplete="off" placeholder="e.g. 5" required
+                                    aria-describedby="study-days-error">
+                                <p class="field-error" id="study-days-error" aria-live="polite"></p>
+                            </div>
+                        </div>
+                        <div class="calc-actions">
+                            <button type="submit" class="btn btn-primary">Calculate Weekly Hours</button>
+                            <button type="reset" class="btn btn-ghost">Clear</button>
+                        </div>
+                    </form>
+                    <p class="calc-result" id="calc-result" aria-live="polite" hidden></p>
+                </div>
             </section>
 
             <!-- PHOTOS -->

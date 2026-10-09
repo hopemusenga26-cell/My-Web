@@ -627,6 +627,42 @@ tbody tr:hover {
     background-color: var(--accent-soft);
 }
 
+/* Study hours calculator (inside the Learning Plan section) */
+.calculator {
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+    padding: var(--space-2) 1.25rem;
+    margin-top: var(--space-3);
+}
+
+.calculator h3 {
+    margin-top: 0;
+}
+
+.calc-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0 var(--space-2);
+}
+
+.calc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+}
+
+.calc-result {
+    margin: var(--space-2) 0 0;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--success);
+    border-radius: var(--radius-sm);
+    background-color: var(--surface);
+    font-weight: 600;
+}
+
 /* ===== 12. Contact form ===== */
 .form-note {
     color: var(--muted);

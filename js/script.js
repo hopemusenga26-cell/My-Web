@@ -443,6 +443,102 @@ function initThemeSwitch() {
 
 
 /* -------------------------------------------------------------
+   Feature 5: study hours calculator
+   Multiplies planned hours per day by days per week and shows
+   the weekly total. Blank, non-numeric and negative hours are
+   rejected, and days must be a whole number from 1 to 7.
+   ------------------------------------------------------------- */
+const MAX_HOURS_PER_DAY = 24;
+
+// Checks the hours value; returns an error message, or '' when it is valid.
+function checkStudyHours(text) {
+    if (text === '') {
+        return 'Please enter your study hours per day.';
+    }
+    if (/^-\s*\.?\d/.test(text)) {
+        return 'Hours cannot be negative.';
+    }
+    if (!/^(\d+(\.\d+)?|\.\d+)$/.test(text)) {
+        return 'Please enter hours as a number, for example 2 or 1.5.';
+    }
+    const hours = Number(text);
+    if (hours === 0) {
+        return 'Please enter more than 0 hours.';
+    }
+    if (hours > MAX_HOURS_PER_DAY) {
+        return `A day only has ${MAX_HOURS_PER_DAY} hours. Please enter ${MAX_HOURS_PER_DAY} or fewer.`;
+    }
+    return '';
+}
+
+// Checks the days value; returns an error message, or '' when it is valid.
+function checkStudyDays(text) {
+    if (text === '') {
+        return 'Please enter the number of days per week.';
+    }
+    if (!/^-?\d+$/.test(text)) {
+        return 'Please enter days as a whole number from 1 to 7.';
+    }
+    const days = Number(text);
+    if (days < 1 || days > 7) {
+        return 'Days per week must be from 1 to 7.';
+    }
+    return '';
+}
+
+// Connects the calculator's Calculate and Clear buttons.
+function initStudyCalculator() {
+    const form = document.getElementById('study-calculator');
+    if (!form) {
+        return;
+    }
+    const hoursInput = document.getElementById('study-hours');
+    const daysInput = document.getElementById('study-days');
+    const result = document.getElementById('calc-result');
+
+    // Our own messages replace the browser's pop-ups; the required attributes stay in the HTML.
+    form.noValidate = true;
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();   // calculate on this page — no reload
+
+        const hoursText = hoursInput.value.trim();
+        const daysText = daysInput.value.trim();
+        const hoursError = checkStudyHours(hoursText);
+        const daysError = checkStudyDays(daysText);
+        showFieldError(hoursInput, hoursError);
+        showFieldError(daysInput, daysError);
+
+        if (hoursError || daysError) {
+            result.hidden = true;
+            (hoursError ? hoursInput : daysInput).focus();
+            return;
+        }
+
+        const hours = Number(hoursText);
+        const days = Number(daysText);
+        const total = Math.round(hours * days * 100) / 100;   // at most 2 decimal places
+        const hourWord = (n) => (n === 1 ? 'hour' : 'hours');
+        const dayWord = days === 1 ? 'day' : 'days';
+
+        result.textContent =
+            `${hours} ${hourWord(hours)} a day × ${days} ${dayWord} a week = ` +
+            `${total} ${hourWord(total)} of study per week.`;
+        result.hidden = false;
+    });
+
+    // Clear empties the fields (built-in form reset), then we remove the result and any errors.
+    form.addEventListener('reset', () => {
+        showFieldError(hoursInput, '');
+        showFieldError(daysInput, '');
+        result.hidden = true;
+        result.textContent = '';
+        hoursInput.focus();
+    });
+}
+
+
+/* -------------------------------------------------------------
    Start everything (the script is deferred, so the DOM is ready)
    ------------------------------------------------------------- */
 initThemeSwitch();
@@ -452,3 +548,4 @@ updateHeaderOffset();
 window.addEventListener('resize', updateHeaderOffset);
 initProjectFilter();
 initContactForm();
+initStudyCalculator();
