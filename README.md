@@ -23,7 +23,7 @@ All feature logic is in [`js/script.js`](js/script.js).
 
 Accessibility details: every control is reachable with the Tab key and shows a visible focus outline;
 error messages use `aria-live` and `aria-invalid`; the menu button uses `aria-expanded` and `aria-controls`;
-the animated background stops for visitors who choose *reduce motion*. The video and audio never autoplay.
+the decorative background is a still image (no distracting animation). The video and audio never autoplay.
 
 ## Folder structure
 
@@ -33,7 +33,7 @@ My-Web/
 ├── css/
 │   └── styles.css      # external stylesheet: palette, layout, both themes, media queries
 ├── js/
-│   └── script.js       # background animation + the four JavaScript features
+│   └── script.js       # still background drawing + the four JavaScript features
 ├── images/
 │   ├── photo1.jpg
 │   ├── photo2.jpg

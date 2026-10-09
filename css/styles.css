@@ -126,7 +126,7 @@ video {
     outline-offset: 3px;
 }
 
-/* Animated tech background canvas (id selector) */
+/* Still, decorative tech background canvas (id selector) */
 #bg-canvas {
     position: fixed;
     top: 0;

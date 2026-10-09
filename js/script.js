@@ -8,14 +8,11 @@
 // Lets the CSS know JavaScript is running (used for progressive enhancement).
 document.documentElement.classList.add('js');
 
-const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-
 /* -------------------------------------------------------------
-   Animated background
-   Tech-style particle network. Particles drift on their own and
-   the whole field shifts slightly as the page scrolls (parallax).
-   With "reduce motion" switched on, one still frame is drawn.
+   Decorative background
+   Tech-style particle network drawn once as a still image (no
+   animation, so nothing moves while the visitor reads). It is
+   redrawn only when the window is resized or the theme changes.
    ------------------------------------------------------------- */
 const background = {
     canvas: null,
@@ -23,7 +20,6 @@ const background = {
     width: 0,
     height: 0,
     particles: [],
-    scrollOffset: 0,
     colour: '56, 189, 248',
     PARTICLE_COUNT: 70,
     LINK_DISTANCE: 130
@@ -43,41 +39,25 @@ function resizeCanvas() {
     background.height = background.canvas.height = window.innerHeight;
 }
 
-// Fills the particles array with randomly placed, slowly moving points.
+// Fills the particles array with randomly placed points.
 function createParticles() {
     background.particles = [];
     for (let i = 0; i < background.PARTICLE_COUNT; i++) {
         background.particles.push({
             x: Math.random() * background.width,
-            y: Math.random() * background.height,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4
+            y: Math.random() * background.height
         });
     }
 }
 
-// Draws one frame: moves each particle, then links particles that are close together.
-function drawBackground(animate) {
+// Draws the still image: a dot for each particle, then lines between particles that are close together.
+function drawBackground() {
     const { ctx, width, height, particles, colour, LINK_DISTANCE } = background;
     ctx.clearRect(0, 0, width, height);
 
-    const parallaxShift = background.scrollOffset * 0.15;
-
     for (const p of particles) {
-        if (animate) {
-            p.x += p.vx;
-            p.y += p.vy;
-        }
-
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
-
-        const drawY = (p.y + parallaxShift) % height;
-
         ctx.beginPath();
-        ctx.arc(p.x, drawY, 2, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${colour}, 0.8)`;
         ctx.fill();
     }
@@ -86,18 +66,13 @@ function drawBackground(animate) {
         for (let j = i + 1; j < particles.length; j++) {
             const a = particles[i];
             const b = particles[j];
-            const ay = (a.y + parallaxShift) % height;
-            const by = (b.y + parallaxShift) % height;
-
-            const dx = a.x - b.x;
-            const dy = ay - by;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+            const dist = Math.hypot(a.x - b.x, a.y - b.y);
 
             if (dist < LINK_DISTANCE) {
                 const opacity = 1 - dist / LINK_DISTANCE;
                 ctx.beginPath();
-                ctx.moveTo(a.x, ay);
-                ctx.lineTo(b.x, by);
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
                 ctx.strokeStyle = `rgba(${colour}, ${opacity * 0.3})`;
                 ctx.lineWidth = 1;
                 ctx.stroke();
@@ -106,15 +81,7 @@ function drawBackground(animate) {
     }
 }
 
-// Animation loop; stops moving when the visitor prefers reduced motion.
-function backgroundLoop() {
-    drawBackground(!reducedMotionQuery.matches);
-    if (!reducedMotionQuery.matches) {
-        requestAnimationFrame(backgroundLoop);
-    }
-}
-
-// Sets up the canvas and its resize / scroll listeners.
+// Sets up the canvas, draws it once and redraws it when the window is resized.
 function initBackground() {
     background.canvas = document.getElementById('bg-canvas');
     if (!background.canvas || !background.canvas.getContext) {
@@ -134,22 +101,10 @@ function initBackground() {
             lastWidth = window.innerWidth;
             createParticles();
         }
-        if (reducedMotionQuery.matches) {
-            drawBackground(false);
-        }
+        drawBackground();
     });
 
-    window.addEventListener('scroll', () => {
-        background.scrollOffset = window.scrollY;
-        if (reducedMotionQuery.matches) {
-            drawBackground(false);
-        }
-    }, { passive: true });
-
-    // Restart the loop if the visitor switches reduced motion off while the page is open.
-    reducedMotionQuery.addEventListener('change', backgroundLoop);
-
-    backgroundLoop();
+    drawBackground();
 }
 
 
@@ -466,8 +421,8 @@ function applyTheme(theme) {
 
     // Recolour the background particles to suit the new theme.
     readParticleColour();
-    if (background.ctx && reducedMotionQuery.matches) {
-        drawBackground(false);
+    if (background.ctx) {
+        drawBackground();
     }
 }
 
