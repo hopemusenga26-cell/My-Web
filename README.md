@@ -5,7 +5,7 @@ Welcome to my web! This is my personal portfolio website for **ICT251 Web Techno
 site grew out of my Activity 2 page: it keeps my About Me, hobbies, learning plan, photos, video and audio,
 and adds a Projects & Skills section, a professional responsive design and four JavaScript features.
 
-- **Live site (Render):** <!-- TODO: Musenga — paste the onrender.com link after deploying --> _coming soon_
+- **Live site (Render):** https://musenga-hope-sichula-portfolio.onrender.com
 - **Source code:** https://github.com/hopemusenga26-cell/My-Web
 
 Built with plain **HTML5, CSS and vanilla JavaScript**: no frameworks, no build step.
