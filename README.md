@@ -65,7 +65,7 @@ Visitors can search the projects or show only one category.
 
 **How to test it** (in the Projects & Skills section):
 
-1. Type `java` or `OCR` in the search box → only matching projects are shown.
+1. Type `python` or `java` in the search box → only matching projects are shown.
 2. Press **Data & AI**, **Programming** or **Web** → only that category is shown.
 3. Type `zzz` → a "No projects match…" message appears.
 4. Press **Reset** → all six projects are shown again.
