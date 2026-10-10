@@ -137,7 +137,5 @@ GitHub repository. Every time I push a change to `main`, Render updates the live
 
 - Photos 1 and 2, the introduction video and the audio clip are my own. Photo 3 is an illustrated portrait of me.
 - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn) — reference for HTML, CSS and JavaScript.
-- AI assistance: Claude (Anthropic) helped me restructure the page, write the CSS and JavaScript,
-  and test it. The personal content, photos and media are my own.
 
 &copy; 2026 Musenga Hope Sichula
